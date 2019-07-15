@@ -1,6 +1,6 @@
 <?php
 
-namespace ContainerJFmbCl9;
+namespace ContainerP4lItzW;
 
 use Symfony\Component\DependencyInjection\Argument\RewindableGenerator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -62,6 +62,9 @@ class srcApp_KernelDevDebugContainer extends Container
             'var_dumper.cloner' => 'getVarDumper_ClonerService',
         ];
         $this->fileMap = [
+            'App\\Controller\\FormateurController' => 'getFormateurControllerService.php',
+            'App\\Controller\\SessionController' => 'getSessionControllerService.php',
+            'App\\Controller\\StagiaireController' => 'getStagiaireControllerService.php',
             'Symfony\\Bundle\\FrameworkBundle\\Controller\\RedirectController' => 'getRedirectControllerService.php',
             'Symfony\\Bundle\\FrameworkBundle\\Controller\\TemplateController' => 'getTemplateControllerService.php',
             'cache.app_clearer' => 'getCache_AppClearerService.php',
@@ -124,6 +127,11 @@ class srcApp_KernelDevDebugContainer extends Container
             include_once $this->targetDirs[3].'\\vendor\\symfony\\http-kernel\\EventListener\\ValidateRequestListener.php';
             include_once $this->targetDirs[3].'\\vendor\\symfony\\framework-bundle\\EventListener\\ResolveControllerNameSubscriber.php';
             include_once $this->targetDirs[3].'\\vendor\\symfony\\http-kernel\\EventListener\\DisallowRobotsIndexingListener.php';
+            include_once $this->targetDirs[3].'\\vendor\\symfony\\dependency-injection\\ParameterBag\\ParameterBagInterface.php';
+            include_once $this->targetDirs[3].'\\vendor\\symfony\\dependency-injection\\ParameterBag\\ParameterBag.php';
+            include_once $this->targetDirs[3].'\\vendor\\symfony\\dependency-injection\\ParameterBag\\FrozenParameterBag.php';
+            include_once $this->targetDirs[3].'\\vendor\\symfony\\dependency-injection\\ParameterBag\\ContainerBagInterface.php';
+            include_once $this->targetDirs[3].'\\vendor\\symfony\\dependency-injection\\ParameterBag\\ContainerBag.php';
             include_once $this->targetDirs[3].'\\vendor\\symfony\\http-kernel\\HttpKernelInterface.php';
             include_once $this->targetDirs[3].'\\vendor\\symfony\\http-kernel\\TerminableInterface.php';
             include_once $this->targetDirs[3].'\\vendor\\symfony\\http-kernel\\HttpKernel.php';
@@ -380,11 +388,6 @@ class srcApp_KernelDevDebugContainer extends Container
             include_once $this->targetDirs[3].'\\vendor\\symfony\\service-contracts\\ServiceSubscriberInterface.php';
             include_once $this->targetDirs[3].'\\vendor\\symfony\\dependency-injection\\ServiceSubscriberInterface.php';
             include_once $this->targetDirs[3].'\\vendor\\symfony\\framework-bundle\\Routing\\Router.php';
-            include_once $this->targetDirs[3].'\\vendor\\symfony\\dependency-injection\\ParameterBag\\ParameterBagInterface.php';
-            include_once $this->targetDirs[3].'\\vendor\\symfony\\dependency-injection\\ParameterBag\\ParameterBag.php';
-            include_once $this->targetDirs[3].'\\vendor\\symfony\\dependency-injection\\ParameterBag\\FrozenParameterBag.php';
-            include_once $this->targetDirs[3].'\\vendor\\symfony\\dependency-injection\\ParameterBag\\ContainerBagInterface.php';
-            include_once $this->targetDirs[3].'\\vendor\\symfony\\dependency-injection\\ParameterBag\\ContainerBag.php';
             include_once $this->targetDirs[3].'\\vendor\\symfony\\validator\\Mapping\\Factory\\MetadataFactoryInterface.php';
             include_once $this->targetDirs[3].'\\vendor\\symfony\\validator\\Validator\\ValidatorInterface.php';
             include_once $this->targetDirs[3].'\\vendor\\symfony\\validator\\Validator\\TraceableValidator.php';
@@ -522,12 +525,14 @@ class srcApp_KernelDevDebugContainer extends Container
             'App\\Repository\\DureeRepository' => ['privates', 'App\\Repository\\DureeRepository', 'getDureeRepositoryService.php', true],
             'App\\Repository\\FormateurRepository' => ['privates', 'App\\Repository\\FormateurRepository', 'getFormateurRepositoryService.php', true],
             'App\\Repository\\ModuleRepository' => ['privates', 'App\\Repository\\ModuleRepository', 'getModuleRepositoryService.php', true],
+            'App\\Repository\\SessionRepository' => ['privates', 'App\\Repository\\SessionRepository', 'getSessionRepositoryService.php', true],
             'App\\Repository\\StagiaireRepository' => ['privates', 'App\\Repository\\StagiaireRepository', 'getStagiaireRepositoryService.php', true],
         ], [
             'App\\Repository\\CategorieRepository' => '?',
             'App\\Repository\\DureeRepository' => '?',
             'App\\Repository\\FormateurRepository' => '?',
             'App\\Repository\\ModuleRepository' => '?',
+            'App\\Repository\\SessionRepository' => '?',
             'App\\Repository\\StagiaireRepository' => '?',
         ])));
 
@@ -863,7 +868,7 @@ class srcApp_KernelDevDebugContainer extends Container
             'routing.loader' => ['services', 'routing.loader', 'getRouting_LoaderService.php', true],
         ], [
             'routing.loader' => 'Symfony\\Component\\Config\\Loader\\LoaderInterface',
-        ]))->withContext('router.default', $this), 'kernel::loadRoutes', ['cache_dir' => $this->targetDirs[0], 'debug' => true, 'generator_class' => 'Symfony\\Component\\Routing\\Generator\\CompiledUrlGenerator', 'generator_dumper_class' => 'Symfony\\Component\\Routing\\Generator\\Dumper\\CompiledUrlGeneratorDumper', 'matcher_class' => 'Symfony\\Bundle\\FrameworkBundle\\Routing\\RedirectableCompiledUrlMatcher', 'matcher_dumper_class' => 'Symfony\\Component\\Routing\\Matcher\\Dumper\\CompiledUrlMatcherDumper', 'strict_requirements' => true, 'resource_type' => 'service'], ($this->privates['router.request_context'] ?? $this->getRouter_RequestContextService()), new \Symfony\Component\DependencyInjection\ParameterBag\ContainerBag($this), $a, 'en');
+        ]))->withContext('router.default', $this), 'kernel::loadRoutes', ['cache_dir' => $this->targetDirs[0], 'debug' => true, 'generator_class' => 'Symfony\\Component\\Routing\\Generator\\CompiledUrlGenerator', 'generator_dumper_class' => 'Symfony\\Component\\Routing\\Generator\\Dumper\\CompiledUrlGeneratorDumper', 'matcher_class' => 'Symfony\\Bundle\\FrameworkBundle\\Routing\\RedirectableCompiledUrlMatcher', 'matcher_dumper_class' => 'Symfony\\Component\\Routing\\Matcher\\Dumper\\CompiledUrlMatcherDumper', 'strict_requirements' => true, 'resource_type' => 'service'], ($this->privates['router.request_context'] ?? $this->getRouter_RequestContextService()), ($this->privates['parameter_bag'] ?? ($this->privates['parameter_bag'] = new \Symfony\Component\DependencyInjection\ParameterBag\ContainerBag($this))), $a, 'en');
 
         $instance->setConfigCacheFactory(($this->privates['config_cache_factory'] ?? $this->getConfigCacheFactoryService()));
 
@@ -1293,6 +1298,16 @@ class srcApp_KernelDevDebugContainer extends Container
         \Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass::configureLogger($instance);
 
         return $instance;
+    }
+
+    /**
+     * Gets the private 'parameter_bag' shared service.
+     *
+     * @return \Symfony\Component\DependencyInjection\ParameterBag\ContainerBag
+     */
+    protected function getParameterBagService()
+    {
+        return $this->privates['parameter_bag'] = new \Symfony\Component\DependencyInjection\ParameterBag\ContainerBag($this);
     }
 
     /**
