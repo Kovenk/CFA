@@ -85,3 +85,4 @@
 [2019-07-15 14:12:46] doctrine.DEBUG: SELECT version FROM migration_versions [] []
 [2019-07-15 14:24:03] doctrine.DEBUG: SELECT version FROM migration_versions WHERE version IN ('20190715135957') ORDER BY version DESC LIMIT 1 [] []
 [2019-07-15 14:24:03] doctrine.DEBUG: SELECT version FROM migration_versions [] []
+[2019-07-15 14:53:15] console.DEBUG: Command "make:controller Categorie" exited with code "1" {"command":"make:controller Categorie","code":1} []
