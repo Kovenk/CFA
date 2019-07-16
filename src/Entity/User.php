@@ -38,7 +38,7 @@ class User implements UserInterface, \Serializable {
      * The below length depends on the "algorithm" you use for encoding
      * the password, but this works well with bcrypt.
      *
-     * @ORM\Column(type="string", length=256)
+     * @ORM\Column(type="string", length=255)
      */
     private $password;
 
