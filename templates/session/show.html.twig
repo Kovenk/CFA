@@ -11,19 +11,19 @@
 
        <table class="table table-hover">
             <thead class="thead-dark">
+                        <label> Listes des modules pour la session {{ session.intitule }} </label>
                 <tr>
                     <th scope="col">Module</th>
-                    <th scope="col">Formateur</th>
                     <th scope="col">Nombres de jours</th>
                 </tr>
             </thead>
             <tbody>
                 {% for module in session.compositionModule %}
 
-                    <tr>
-                        <td scope="row"></td>
-                        <td></td>
-                        <td></td>
+                    <tr> {# NOUBLIE JAMAIS CETTE PUTAIN DE RELATION #}
+                         {# On va chercher le module lié par la durée et on ressort son intitule #}
+                        <td scope="row">{{ module.dureeIntoModule.intitule }}</td>
+                        <td>{{ module.nbJour }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
