@@ -22,10 +22,10 @@
                 {% for stagiaire in stagiaires %}
                 <tr>
                     <td scope="row"><a href="{{ path('stagiaire_show', {'id': stagiaire.id}) }}">{{ stagiaire.nom }}</a></td>
-                    <td>{{ staigaire.prenom }}</td>
+                    <td>{{ stagiaire.prenom }}</td>
                     <td>{{ stagiaire.dateNaissance | date('d/m/Y') }}</td>
                     <td>{{ stagiaire.telephone }}</td>
-                    <td>{{ staigaire.mail }} </td>
+                    <td>{{ stagiaire.mail }} </td>
                 </tr>
             </tbody>
                 {% endfor %}

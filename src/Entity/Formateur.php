@@ -52,7 +52,7 @@ class Formateur
     private $mail;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=16)
      */
     private $telephone;
 
@@ -150,12 +150,11 @@ class Formateur
         return $this;
     }
 
-    public function getTelephone(): ?int
-    {
+    public function getTelephone(){
         return $this->telephone;
     }
 
-    public function setTelephone(int $telephone): self
+    public function setTelephone($telephone)
     {
         $this->telephone = $telephone;
 

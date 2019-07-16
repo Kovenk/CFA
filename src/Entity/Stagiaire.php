@@ -54,7 +54,7 @@ class Stagiaire
     private $mail;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=16)
      */
     private $telephone;
 
@@ -157,12 +157,12 @@ class Stagiaire
         return $this;
     }
 
-    public function getTelephone(): ?int
+    public function getTelephone(): ?string
     {
         return $this->telephone;
     }
 
-    public function setTelephone(int $telephone): self
+    public function setTelephone(string $telephone): self
     {
         $this->telephone = $telephone;
 
