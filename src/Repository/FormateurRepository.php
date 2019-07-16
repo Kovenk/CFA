@@ -19,6 +19,14 @@ class FormateurRepository extends ServiceEntityRepository
         parent::__construct($registry, Formateur::class);
     }
 
+    public function getAll(){
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+                'SELECT f 
+                 FROM App\Entity\Formateur f'                                        
+        );
+        return $query->execute();
+    }
     // /**
     //  * @return Formateur[] Returns an array of Formateur objects
     //  */

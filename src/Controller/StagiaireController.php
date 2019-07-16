@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Stagiaire;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class StagiaireController extends AbstractController
 {
@@ -16,4 +18,32 @@ class StagiaireController extends AbstractController
             'controller_name' => 'StagiaireController',
         ]);
     }
+
+    /**
+     * @Route("/", name="stagiaire_index", methods="GET")
+     */
+    public function indexStagiaire()
+    {
+        $stagiaires = $this->getDoctrine()
+        ->getRepository(Stagiaire::class)
+        ->getAll();
+        
+        return $this->render('stagiaire/index.html.twig', [
+            'stagiaires' => $stagiaires
+        ]);
+    }
+
+
+    /**
+     * @Route("/{id}", name="stagiaire_show", methods="GET")
+     */
+    public function showStagiaire(Stagiaire $stagiaire): Response {
+        return $this->render('stagiaire/show.html.twig',[
+            'stagiaire' => $stagiaire
+        ]);
+    }
+
+
+
+
 }

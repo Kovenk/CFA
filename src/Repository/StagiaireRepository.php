@@ -19,6 +19,36 @@ class StagiaireRepository extends ServiceEntityRepository
         parent::__construct($registry, Stagiaire::class);
     }
 
+    public function getAll(){
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+                'SELECT s 
+                 FROM App\Entity\Stagiaire s'                                        
+        );
+        return $query->execute();
+    }
+
+
+    // public function getAllFromUser($id_session)
+    // {
+    //     $entityManager = $this->getEntityManager();
+    //     $query = $entityManager->createQuery(
+    //                             'SELECT s
+    //                             FROM App\Entity\Stagiaire s
+    //                             WHERE s.user = :session');
+    //     $query->setParameter('session', $id_session);
+    //     return $query->execute();
+    // }
+
+
+
+
+
+
+
+
+
+
     // /**
     //  * @return Stagiaire[] Returns an array of Stagiaire objects
     //  */
@@ -47,4 +77,6 @@ class StagiaireRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
 }
