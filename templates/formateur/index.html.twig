@@ -13,9 +13,9 @@
                 <tr>
                     <th scope="col">Nom</th>
                     <th scope="col">Prenom</th>
-                    <th scope="col">Date de Naissance</th>
-                    <th scope="col">Telephone</th>
-                    <th scope="col">Mail</th> 
+                    <th scope="col">Spécialité</th>
+                    {# <th scope="col">Telephone</th>
+                    <th scope="col">Mail</th>  #}
                     
                 </tr>
             </thead>
@@ -24,9 +24,7 @@
                 <tr>
                     <td scope="row"><a href="{{ path('formateur_show', {'id': formateur.id}) }}">{{ formateur.nom }}</a></td>
                     <td>{{ formateur.prenom }}</td>
-                    <td>{{ formateur.dateNaissance | date('d/m/Y') }}</td>
-                    <td>{{ formateur.telephone }}</td>
-                    <td>{{ formateur.mail }} </td>
+                    <td>{{ formateur.specialite }}</td>
                 </tr>
             </tbody>
                 {% endfor %}

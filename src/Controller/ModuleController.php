@@ -29,7 +29,7 @@ class ModuleController extends AbstractController
 
     
     /**
-     * @Route("/{id}", name="module_show", methods="GET")
+     * @Route("show/{id}", name="module_show", methods="GET")
      */
     public function showModule(Module $module): Response {
         return $this->render('module/show.html.twig',[
