@@ -262,7 +262,7 @@ public function newSession(){
         if($form->isSubmitted() && $form->isValid()){    
             $manager->persist($session);
             $manager->flush();
-            return $this->redirectToRoute("categorie_add");
+            return $this->redirectToRoute("new_session");
         }
         
         return $this->render('session/add.html.twig',[
@@ -311,7 +311,7 @@ public function newSession(){
         $categorie = new Categorie();
 
         $form = $this->createFormBuilder($categorie)
-        
+
         ->setAction($this->generateUrl("categorie_add"))
 
         ->add('intitule',TextType::class)
@@ -324,10 +324,10 @@ public function newSession(){
         if($form->isSubmitted() && $form->isValid()){    
             $manager->persist($categorie);
             $manager->flush();
-            return $this->redirectToRoute("module_add");
+            return $this->redirectToRoute("new_session");
         }
         
-        return $this->render('session/add.html.twig',[
+        return $this->render('categorie/add.html.twig',[
             'form' => $form->createView()
         ]);
     }
