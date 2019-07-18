@@ -50,7 +50,7 @@ class StagiaireController extends AbstractController
 
 
     /**
-     * @Route("/editpdf/{id}/{session_id}", name="edit_pdf",  methods="GET")
+     * @Route("/12/51/62/3/1/22/1/{id}/{session_id}", name="edit_pdf",  methods="GET")
      * @ParamConverter("session", options={"id" = "session_id"})
      */
     public function editPdfStagiaire(Stagiaire $stagiaire, Session $session)

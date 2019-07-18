@@ -1,5 +1,40 @@
 
+<style>
+*{
+    margin:0;
+    padding:0;    
+    background-color:orange;
+} 
+#test{
+
+    }
+
+
+
+</style>
+
+
 
 {% block body %}
-<p>{{ stagiaire.nom }} {{session.intitule}}</p>
+
+
+    <div id="test">
+        
+        <h1>CFA - Centre de Formation pour l'avenir</h1>
+            <p>établissement de formation supérieur 202 Avenue de Colmar, 67100 Strasbourg
+            Certifit que :</p>
+
+        <h3> {{ stagiaire.nom }} {{ stagiaire.prenom }} </h3>
+
+            <p> ayant honorablement réussit les épreuves théoriques et pratiques
+            de l'examen de fin d'étude du Centre de Formation pour l'avenir.
+            Le jury lui accorde le titre de :</p>
+
+        <h2>Titre {{session.intitule}}</h2>
+
+            <p>et le déclarent digne de tous les Honneurs, 
+            Droits et Privilèges associés à cette distinction.</p>
+
+            <div><p>Le Président du Jury</p><p>Le Directeur de l'Ecole</p></div> </div>
+
 {% endblock %}

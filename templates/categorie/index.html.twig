@@ -11,22 +11,23 @@
        <table class="table table-hover">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">Intitulé de la session</th>
-                    <th scope="col">Date de Debut</th>
-                    <th scope="col">Date de Fin</th>
-                    <th scope="col">Nombre d'inscrits</th>
-                    <th scope="col">Place restantes</th> 
+                    <th scope="col">Intitulé</th>
+                    <th></th>
+                    <th></th>
+                    
+
                     
                 </tr>
             </thead>
             <tbody>
-                {% for session in sessions %}
+                {% for categorie in categories %}
                 <tr>
-                    <td scope="row"><a href="{{ path('session_show', {'id': session.id}) }}">{{ session.intitule }}</a></td>
-                    <td>{{ session.dateDebut | date('d/m/Y') }}</td>
-                    <td>{{ session.dateFin | date('d/m/Y') }}</td>
-                    <td>{{ session.inscription|length }} </td>
-                    <td>{{ session.placeTotale - session.inscription|length }}</td>
+                    <td scope="row">{{ categorie.intitule }}</td>
+                                        {% if is_granted("ROLE_ADMIN")%} 
+                    
+                <td><a class="btn btn-secondary" href="{{ path('categorie_edit', {'id': categorie.id}) }}">Modifier</a></td>   
+                <td><a class="btn btn-secondary" href="{{ path('categorie_delete', {'id': categorie.id}) }}">X</a> 
+                {% endif %} </div></td>
                 </tr>
             </tbody>
                 {% endfor %}

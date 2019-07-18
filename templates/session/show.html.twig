@@ -39,6 +39,7 @@
                     {# <th scope="col">Date de Naissance</th> #}
                     <th scope="col">Telephone</th>
                     <th scope="col">Mail</th> 
+                    <th scope="col"></th>
                     
                 </tr>
             </thead>
@@ -50,6 +51,7 @@
                     {# <td>{{ stagiaire.dateNaissance | date('d/m/Y') }}</td> #}
                     <td>{{ stagiaire.telephone }}</td>
                     <td>{{ stagiaire.mail }} </td>
+                <td><a class="btn btn-secondary" href="{{ path('edit_pdf', {'id': stagiaire.id,'session_id': session.id}) }}">PDF</a></td>
                 </tr> {% endfor %}
             </tbody>
         </table>

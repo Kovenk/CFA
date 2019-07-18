@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Module;
+use App\Entity\Session;
+use App\Entity\Categorie;
 use App\Entity\Formateur;
 use App\Entity\Stagiaire;
-use Proxies\__CG__\App\Entity\Categorie;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 
 /**
  * @Route("/admin")
@@ -232,28 +235,30 @@ class AdminController extends AbstractController
     */
     public function addSession(Request $request, ObjectManager $manager){
 
-        $formateur = new Formateur();
+        $session = new Session();
 
-        $form = $this->createFormBuilder($formateur)
-        ->add('prenom',TextType::class)
-        ->add('nom',TextType::class)
-        ->add('dateNaissance',DateType::class)
-        ->add('specialite', EntityType::class, [
-            // looks for choices from this entity
-            'class' => Categorie::class,
+        $form = $this->createFormBuilder($session)
+        ->add('intitule',TextType::class)
+        ->add('dateDebut',DateType::class)
+        ->add('dateFin',DateType::class)
+        ->add('placeTotale',TextType::class)
         
-            // uses the User.username property as the visible option string
-            'choice_label' => 'intitule',
+        // ->add('categorie', EntityType::class, [
+        //     // looks for choices from this entity
+        //     'class' => Categorie::class,
         
-            // used to render a select box, check boxes or radios
-            // 'multiple' => true,
-            // 'expanded' => true,
-        ])
-        ->add('adresse',TextType::class)
-        ->add('ville',TextType::class)
-        ->add('codePostal',TextType::class)
-        ->add('mail',TextType::class)
-        ->add('telephone',TextType::class)
+        //     // uses the User.username property as the visible option string
+        //     'choice_label' => 'intitule',
+        
+        //     // used to render a select box, check boxes or radios
+        //     // 'multiple' => true,
+        //     // 'expanded' => true,
+        // ])
+        // ->add('adresse',TextType::class)
+        // ->add('ville',TextType::class)
+        // ->add('codePostal',TextType::class)
+        // ->add('mail',TextType::class)
+        // ->add('telephone',TextType::class)
         ->add('Valider',SubmitType::class)
         
         ->getForm();
@@ -262,14 +267,158 @@ class AdminController extends AbstractController
 
 
         if($form->isSubmitted() && $form->isValid()){    
-            $manager->persist($formateur);
+            $manager->persist($session);
             $manager->flush();
-            return $this->redirectToRoute("formateur_index");
+            return $this->redirectToRoute("session_index");
         }
         
-        return $this->render('formateur/add.html.twig',[
+        return $this->render('session/add.html.twig',[
             'form' => $form->createView()
         ]);
+
+    }
+
+
+
+        /**
+    * @Route("/addCategorie", name="categorie_add") 
+    */
+    public function addCategorie(Request $request, ObjectManager $manager){
+
+        $categorie = new Categorie();
+
+        $form = $this->createFormBuilder($categorie)
+        ->add('intitule',TextType::class)
+        ->add('Valider',SubmitType::class)
+        ->getForm();
+
+        $form->handleRequest($request);
+
+
+        if($form->isSubmitted() && $form->isValid()){    
+            $manager->persist($categorie);
+            $manager->flush();
+            return $this->redirectToRoute("categorie_index");
+        }
+        
+        return $this->render('categorie/add.html.twig',[
+            'form' => $form->createView()
+        ]);
+    }
+
+        /**
+     * @Route("/categorie/{id}/edit", name="categorie_edit")
+     */
+    public function editCategorie(Categorie $categorie = null, Request $request, ObjectManager $manager){
+
+        $form = $this->createFormBuilder($categorie)
+        ->add('intitule',TextType::class)
+
+
+        ->add('Valider',SubmitType::class)
+        
+        ->getForm();
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            $manager->flush();
+            return $this->redirectToRoute("categorie_show", ['id' => $categorie->getId()]);
+        }
+        
+
+        return $this->render('categorie/add.html.twig',[
+            'form' => $form->createView(),
+        ]);
+   
+    }
+
+
+
+       /**
+    * @Route("/addModule", name="module_add") 
+    */
+    public function addModule(Request $request, ObjectManager $manager){
+
+        $module = new Module();
+
+        $form = $this->createFormBuilder($module)
+        ->add('intitule',TextType::class)
+        ->add('theme', EntityType::class, [
+            'class' => Categorie::class,
+            'choice_label' => 'intitule',
+        ])
+        ->add('Valider',SubmitType::class)
+        ->getForm();
+
+        $form->handleRequest($request);
+
+
+        if($form->isSubmitted() && $form->isValid()){    
+            $manager->persist($module);
+            $manager->flush();
+            return $this->redirectToRoute("module_index");
+        }
+        
+        return $this->render('module/add.html.twig',[
+            'form' => $form->createView()
+        ]);
+    }
+
+        /**
+     * @Route("/module/{id}/edit", name="module_edit")
+     */
+    public function editModule(Module $module = null, Request $request, ObjectManager $manager){
+
+        $form = $this->createFormBuilder($module)
+        ->add('intitule',TextType::class)
+        ->add('theme', EntityType::class, [
+            'class' => Categorie::class,
+            'choice_label' => 'intitule',
+        ])
+        ->add('Valider',SubmitType::class)
+        
+        ->getForm();
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            $manager->flush();
+            return $this->redirectToRoute("module_index");
+        }
+        
+
+        return $this->render('module/add.html.twig',[
+            'form' => $form->createView(),
+        ]);
+   
+    }
+
+
+
+      /** 
+    * @Route("/categorie/{id}/delete", name="categorie_delete")
+    */
+    public function deleteCategorie(Categorie $categorie, ObjectManager $manager){
+
+        $manager->remove($categorie);
+        $manager->flush();
+
+        return $this->redirectToRoute("categorie_index");
+
+    }
+
+      /** 
+    * @Route("/module/{id}/delete", name="module_delete")
+    */
+    public function deleteModule(Module $module, ObjectManager $manager){
+
+        $manager->remove($module);
+        $manager->flush();
+
+        return $this->redirectToRoute("module_index");
 
     }
 }
