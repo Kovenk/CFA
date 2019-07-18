@@ -1,21 +1,23 @@
 <?php
 
 namespace App\Controller;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Dompdf\Dompdf;
 
 // Include Dompdf required namespaces
-use Dompdf\Dompdf;
 use Dompdf\Options;
+use App\Entity\Session;
 
 use App\Entity\Stagiaire;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
 * @Route("/stagiaire")
@@ -48,9 +50,10 @@ class StagiaireController extends AbstractController
 
 
     /**
-     * @Route("/editPdf/{id}", name="edit_pdf",  methods="GET")
+     * @Route("/editPdf/{id}/{session_id}", name="edit_pdf",  methods="GET")
+     * @ParamConverter("session", options={"id" = "session_id"})
      */
-    public function editPdfStagiaire(Stagiaire $stagiaire)
+    public function editPdfStagiaire(Stagiaire $stagiaire, Session $session)
     {
         // Configure Dompdf according to your needs
         $pdfOptions = new Options();
@@ -61,7 +64,8 @@ class StagiaireController extends AbstractController
         
         // Retrieve the HTML generated in our twig file
         $html = $this->renderView('stagiaire/titrepropdf.html.twig', [
-            'stagiaire' => $stagiaire
+            'stagiaire' => $stagiaire,
+            'session' => $session
         ]);
         
         // Load HTML to Dompdf

@@ -28,7 +28,7 @@
                     <td>{{ formateur.specialite }}</td>
                                                             {% if is_granted("ROLE_ADMIN")%} 
                     
-                {# <a class="btn btn-primary" href="{{ path('message_edit', {'id': message.id}) }}">Modifier</a>    #}
+                <td><a class="btn btn-secondary" href="{{ path('formateur_edit', {'id': formateur.id}) }}">Modifier</a></td>   
                 <td><a class="btn btn-secondary" href="{{ path('formateur_delete', {'id': formateur.id}) }}">X</a> 
                 {% endif %} </div></td>
                 </tr>

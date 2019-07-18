@@ -51,7 +51,7 @@
                     <td>{{ session.dateFin | date('d/m/Y') }}</td>
                     <td>{{ session.inscription|length }} </td>
                     <td>{{ session.placeTotale - session.inscription|length }}</td>
-                <td><a class="btn btn-secondary" href="{{ path('edit_pdf', {'id': stagiaire.id}) }}">PDF</a> 
+                <td><a class="btn btn-secondary" href="{{ path('edit_pdf', {'id': stagiaire.id,'session_id': session.id}) }}">PDF</a> 
                 </tr>
                 {% endfor %}
 

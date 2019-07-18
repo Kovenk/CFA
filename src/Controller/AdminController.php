@@ -144,5 +144,133 @@ class AdminController extends AbstractController
     }
 
 
+    /**
+     * @Route("/stagiaire/{id}/edit", name="stagiaire_edit")
+     */
+    public function editStagiaire(Stagiaire $stagiaire = null, Request $request, ObjectManager $manager){
+
+        $form = $this->createFormBuilder($stagiaire)
+        ->add('prenom',TextType::class)
+        ->add('nom',TextType::class)
+        ->add('dateNaissance',DateType::class)
+        ->add('telephone',TextType::class)
+        ->add('mail',TextType::class)
+        ->add('adresse',TextType::class)
+        ->add('ville',TextType::class)
+        ->add('codePostal',TextType::class)
+
+        ->add('Valider',SubmitType::class)
+        
+        ->getForm();
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            $manager->flush();
+            return $this->redirectToRoute("stagiaire_show", ['id' => $stagiaire->getId()]);
+        }
+        
+
+        return $this->render('stagiaire/add.html.twig',[
+            'form' => $form->createView(),
+        ]);
+   
+    }
+
+
+
+        /**
+     * @Route("formateur/{id}/edit", name="formateur_edit")
+     */
+    public function editFormateur(Formateur $formateur = null, Request $request, ObjectManager $manager){
+
+        $form = $this->createFormBuilder($formateur)
+        ->add('prenom',TextType::class)
+        ->add('nom',TextType::class)
+        ->add('dateNaissance',DateType::class)
+        ->add('specialite', EntityType::class, [
+            // looks for choices from this entity
+            'class' => Categorie::class,
+        
+            // uses the User.username property as the visible option string
+            'choice_label' => 'intitule',
+        
+            // used to render a select box, check boxes or radios
+            // 'multiple' => true,
+            // 'expanded' => true,
+        ])
+        ->add('adresse',TextType::class)
+        ->add('ville',TextType::class)
+        ->add('codePostal',TextType::class)
+        ->add('mail',TextType::class)
+        ->add('telephone',TextType::class)
+        ->add('Valider',SubmitType::class)
+        
+        ->getForm();
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            $manager->flush();
+            return $this->redirectToRoute("formateur_show", ['id' => $formateur->getId()]);
+        }
+        
+
+        return $this->render('formateur/add.html.twig',[
+            'form' => $form->createView(),
+        ]);
+   
+    }
+
+
+
+    
+    /**
+    * @Route("/addSession", name="session_add") 
+    */
+    public function addSession(Request $request, ObjectManager $manager){
+
+        $formateur = new Formateur();
+
+        $form = $this->createFormBuilder($formateur)
+        ->add('prenom',TextType::class)
+        ->add('nom',TextType::class)
+        ->add('dateNaissance',DateType::class)
+        ->add('specialite', EntityType::class, [
+            // looks for choices from this entity
+            'class' => Categorie::class,
+        
+            // uses the User.username property as the visible option string
+            'choice_label' => 'intitule',
+        
+            // used to render a select box, check boxes or radios
+            // 'multiple' => true,
+            // 'expanded' => true,
+        ])
+        ->add('adresse',TextType::class)
+        ->add('ville',TextType::class)
+        ->add('codePostal',TextType::class)
+        ->add('mail',TextType::class)
+        ->add('telephone',TextType::class)
+        ->add('Valider',SubmitType::class)
+        
+        ->getForm();
+
+        $form->handleRequest($request);
+
+
+        if($form->isSubmitted() && $form->isValid()){    
+            $manager->persist($formateur);
+            $manager->flush();
+            return $this->redirectToRoute("formateur_index");
+        }
+        
+        return $this->render('formateur/add.html.twig',[
+            'form' => $form->createView()
+        ]);
+
+    }
 }
 
