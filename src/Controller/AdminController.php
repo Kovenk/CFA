@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Formateur;
 use App\Entity\Stagiaire;
+use Proxies\__CG__\App\Entity\Categorie;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -92,12 +95,22 @@ class AdminController extends AbstractController
         ->add('prenom',TextType::class)
         ->add('nom',TextType::class)
         ->add('dateNaissance',DateType::class)
-        ->add('telephone',TextType::class)
-        ->add('mail',TextType::class)
+        ->add('specialite', EntityType::class, [
+            // looks for choices from this entity
+            'class' => Categorie::class,
+        
+            // uses the User.username property as the visible option string
+            'choice_label' => 'intitule',
+        
+            // used to render a select box, check boxes or radios
+            // 'multiple' => true,
+            // 'expanded' => true,
+        ])
         ->add('adresse',TextType::class)
         ->add('ville',TextType::class)
         ->add('codePostal',TextType::class)
-
+        ->add('mail',TextType::class)
+        ->add('telephone',TextType::class)
         ->add('Valider',SubmitType::class)
         
         ->getForm();
@@ -119,14 +132,14 @@ class AdminController extends AbstractController
 
 
     /** 
-    * @Route("/stagiaire/{id}/delete", name="stagiaire_delete")
+    * @Route("/formateur/{id}/delete", name="formateur_delete")
     */
-    public function deleteStagiaire(Stagiaire $stagiaire, ObjectManager $manager){
+    public function deleteFormateur(Formateur $formateur, ObjectManager $manager){
 
-        $manager->remove($stagiaire);
+        $manager->remove($formateur);
         $manager->flush();
 
-        return $this->redirectToRoute("stagiaire_index");
+        return $this->redirectToRoute("formateur_index");
 
     }
 

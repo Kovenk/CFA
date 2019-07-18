@@ -40,6 +40,7 @@
             <th scope="col">Date de Fin</th>
             <th scope="col">Nombre d'inscrits</th>
             <th scope="col">Place restantes</th> 
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -50,9 +51,10 @@
                     <td>{{ session.dateFin | date('d/m/Y') }}</td>
                     <td>{{ session.inscription|length }} </td>
                     <td>{{ session.placeTotale - session.inscription|length }}</td>
+                <td><a class="btn btn-secondary" href="{{ path('edit_pdf', {'id': stagiaire.id}) }}">PDF</a> 
                 </tr>
                 {% endfor %}
-                
+
     </tbody>
 
 {% endblock %}
