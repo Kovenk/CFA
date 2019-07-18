@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+<div>
+
+ {{ render(controller('App\\Controller\\AdminController::addSession')) }}
+</div>
+
+
+<div>
+
+ {{ render(controller('App\\Controller\\AdminController::addCategorie')) }}
+
+</div>
+
+
+<div>
+
+ {{ render(controller('App\\Controller\\AdminController::addModule')) }}
+
+</div>
+{% endblock %}

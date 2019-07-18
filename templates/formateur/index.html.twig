@@ -15,6 +15,7 @@
                     <th scope="col">Prenom</th>
                     <th scope="col">Spécialité</th>
                     <th></th>
+
                     {# <th scope="col">Telephone</th>
                     <th scope="col">Mail</th>  #}
                     
@@ -28,8 +29,8 @@
                     <td>{{ formateur.specialite }}</td>
                                                             {% if is_granted("ROLE_ADMIN")%} 
                     
-                <td><a class="btn btn-secondary" href="{{ path('formateur_edit', {'id': formateur.id}) }}">Modifier</a></td>   
-                <td><a class="btn btn-secondary" href="{{ path('formateur_delete', {'id': formateur.id}) }}">X</a> 
+                <td style="float: right"><a class="btn btn-secondary" href="{{ path('formateur_edit', {'id': formateur.id}) }}">Modifier</a>
+                <a class="btn btn-secondary" href="{{ path('formateur_delete', {'id': formateur.id}) }}">X</a> 
                 {% endif %} </div></td>
                 </tr>
             </tbody>

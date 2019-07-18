@@ -16,7 +16,9 @@
                     <th scope="col">Date de Fin</th>
                     <th scope="col">Nombre d'inscrits</th>
                     <th scope="col">Place restantes</th> 
-                    
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                        
                 </tr>
             </thead>
             <tbody>
@@ -27,6 +29,11 @@
                     <td>{{ session.dateFin | date('d/m/Y') }}</td>
                     <td>{{ session.inscription|length }} </td>
                     <td>{{ session.placeTotale - session.inscription|length }}</td>
+                                                                                {% if is_granted("ROLE_ADMIN")%} 
+                
+                <td><a class="btn btn-secondary" href="{{ path('session_edit', {'id': session.id}) }}">Modifier</a></td> 
+                <td><a class="btn btn-secondary" href="{{ path('session_delete', {'id': session.id}) }}">X</a> 
+                {% endif %} </div></td> 
                 </tr>
             </tbody>
                 {% endfor %}

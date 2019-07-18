@@ -1,40 +1,44 @@
 
 <style>
-*{
-    margin:0;
-    padding:0;    
-    background-color:orange;
-} 
-#test{
+    
+    @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
+    *{
+        background: rgb(49,100,230);
+        background: linear-gradient(90deg, rgba(49,100,230,1) 0%, rgba(162,214,224,1) 100%);
+        margin:0;
+        padding:20px 10px;
+
+        font-family: 'Roboto', sans-serif;
+        text-align: center;
+    } 
+
+    .text{
+        text-align: justify;
     }
-
-
-
 </style>
-
-
 
 {% block body %}
 
-
-    <div id="test">
+    <div class="test">
         
-        <h1>CFA - Centre de Formation pour l'avenir</h1>
-            <p>établissement de formation supérieur 202 Avenue de Colmar, 67100 Strasbourg
+        <h1 >CFA - Centre de Formation pour l'avenir</h1>
+            <p>Établissement de formation supérieur 202 Avenue de Colmar, 67100 Strasbourg
             Certifit que :</p>
 
         <h3> {{ stagiaire.nom }} {{ stagiaire.prenom }} </h3>
 
-            <p> ayant honorablement réussit les épreuves théoriques et pratiques
-            de l'examen de fin d'étude du Centre de Formation pour l'avenir.
-            Le jury lui accorde le titre de :</p>
+            <p class="text"> ayant honorablement réussit les épreuves théoriques et pratiques
+            de l'examen de fin d'étude du Centre de Formation pour l'avenir.</p>
+            <p> Le jury lui accorde le titre de :</p>
 
         <h2>Titre {{session.intitule}}</h2>
 
             <p>et le déclarent digne de tous les Honneurs, 
             Droits et Privilèges associés à cette distinction.</p>
 
-            <div><p>Le Président du Jury</p><p>Le Directeur de l'Ecole</p></div> </div>
+            <span><p>Le Président du Jury</p><p>Le Directeur de l'Ecole</p></span> 
+            
+    </div>
 
 {% endblock %}

@@ -58,9 +58,11 @@ class StagiaireController extends AbstractController
         // Configure Dompdf according to your needs
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Arial');
-        
+        $webRoot = '/var/www/html/';
+
         // Instantiate Dompdf with our options
         $dompdf = new Dompdf($pdfOptions);
+        $dompdf->setBasePath($webRoot);
         
         // Retrieve the HTML generated in our twig file
         $html = $this->renderView('stagiaire/titrepropdf.html.twig', [

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Duree;
 use App\Entity\Module;
 use App\Entity\Session;
 use App\Entity\Categorie;
@@ -183,7 +184,7 @@ class AdminController extends AbstractController
 
 
 
-        /**
+    /**
      * @Route("formateur/{id}/edit", name="formateur_edit")
      */
     public function editFormateur(Formateur $formateur = null, Request $request, ObjectManager $manager){
@@ -228,7 +229,12 @@ class AdminController extends AbstractController
     }
 
 
-
+/**
+ * @Route("/newsession", name="new_session")
+ */
+public function newSession(){
+    return $this->render('session/new.html.twig');
+}
     
     /**
     * @Route("/addSession", name="session_add") 
@@ -238,27 +244,14 @@ class AdminController extends AbstractController
         $session = new Session();
 
         $form = $this->createFormBuilder($session)
+
+        ->setAction($this->generateUrl("session_add"))
+
         ->add('intitule',TextType::class)
         ->add('dateDebut',DateType::class)
         ->add('dateFin',DateType::class)
         ->add('placeTotale',TextType::class)
-        
-        // ->add('categorie', EntityType::class, [
-        //     // looks for choices from this entity
-        //     'class' => Categorie::class,
-        
-        //     // uses the User.username property as the visible option string
-        //     'choice_label' => 'intitule',
-        
-        //     // used to render a select box, check boxes or radios
-        //     // 'multiple' => true,
-        //     // 'expanded' => true,
-        // ])
-        // ->add('adresse',TextType::class)
-        // ->add('ville',TextType::class)
-        // ->add('codePostal',TextType::class)
-        // ->add('mail',TextType::class)
-        // ->add('telephone',TextType::class)
+    
         ->add('Valider',SubmitType::class)
         
         ->getForm();
@@ -269,7 +262,7 @@ class AdminController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){    
             $manager->persist($session);
             $manager->flush();
-            return $this->redirectToRoute("session_index");
+            return $this->redirectToRoute("categorie_add");
         }
         
         return $this->render('session/add.html.twig',[
@@ -278,6 +271,36 @@ class AdminController extends AbstractController
 
     }
 
+    /**
+     * @Route("session/{id}/edit", name="session_edit")
+     */
+    public function editSession(Session $session = null, Request $request, ObjectManager $manager){
+
+        $form = $this->createFormBuilder($session)
+        ->add('intitule',TextType::class)
+        ->add('dateDebut',DateType::class)
+
+
+
+        ->add('dateFin',DateType::class)
+        ->add('placeTotale',TextType::class)
+        
+        ->getForm();
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            $manager->flush();
+            return $this->redirectToRoute("session_show", ['id' => $session->getId()]);
+        }
+        
+
+        return $this->render('session/add.html.twig',[
+            'form' => $form->createView(),
+        ]);
+   
+    }
 
 
         /**
@@ -288,6 +311,9 @@ class AdminController extends AbstractController
         $categorie = new Categorie();
 
         $form = $this->createFormBuilder($categorie)
+        
+        ->setAction($this->generateUrl("categorie_add"))
+
         ->add('intitule',TextType::class)
         ->add('Valider',SubmitType::class)
         ->getForm();
@@ -298,10 +324,10 @@ class AdminController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){    
             $manager->persist($categorie);
             $manager->flush();
-            return $this->redirectToRoute("categorie_index");
+            return $this->redirectToRoute("module_add");
         }
         
-        return $this->render('categorie/add.html.twig',[
+        return $this->render('session/add.html.twig',[
             'form' => $form->createView()
         ]);
     }
@@ -344,11 +370,15 @@ class AdminController extends AbstractController
         $module = new Module();
 
         $form = $this->createFormBuilder($module)
+
+        ->setAction($this->generateUrl("module_add"))
+
         ->add('intitule',TextType::class)
         ->add('theme', EntityType::class, [
             'class' => Categorie::class,
             'choice_label' => 'intitule',
         ])
+        
         ->add('Valider',SubmitType::class)
         ->getForm();
 
@@ -358,7 +388,7 @@ class AdminController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){    
             $manager->persist($module);
             $manager->flush();
-            return $this->redirectToRoute("module_index");
+            return $this->redirectToRoute("duree_add");
         }
         
         return $this->render('module/add.html.twig',[
@@ -390,7 +420,7 @@ class AdminController extends AbstractController
         }
         
 
-        return $this->render('module/add.html.twig',[
+        return $this->render('session/new.html.twig',[
             'form' => $form->createView(),
         ]);
    
@@ -420,6 +450,53 @@ class AdminController extends AbstractController
 
         return $this->redirectToRoute("module_index");
 
+    }
+
+    /** 
+    * @Route("/session/{id}/delete", name="session_delete")
+    */
+    public function deleteSession(Session $session, ObjectManager $manager){
+
+        $manager->remove($session);
+        $manager->flush();
+
+        return $this->redirectToRoute("session_index");
+
+    }
+
+    /**
+     * @Route("sessionModule/", name="duree_add")
+     */
+    public function addDuree(Request $request, ObjectManager $manager){
+
+        $duree = new Duree();
+
+        $form = $this->createFormBuilder($duree)
+        ->add('dureeIntoSession', EntityType::class, [
+        'class' => Session::class,
+        'choice_label' => 'intitule',
+        ])
+        ->add('nbJour',TextType::class)
+        ->add('dureeIntoModule', EntityType::class, [
+            'class' => Module::class,
+            'choice_label' => 'intitule',
+        ])
+        
+        ->add('Valider',SubmitType::class)
+        ->getForm();
+
+        $form->handleRequest($request);
+
+
+        if($form->isSubmitted() && $form->isValid()){    
+            $manager->persist($duree);
+            $manager->flush();
+            return $this->redirectToRoute("session_index");
+        }
+        
+        return $this->render('duree/add.html.twig',[
+            'form' => $form->createView()
+        ]);
     }
 }
 
