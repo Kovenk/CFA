@@ -114,26 +114,10 @@
         {% endblock %} #}
 
         {% block javascripts %}
-         <script type="text/javascript">
-        $(document).ready(function () {
-            $('.btn-bold').click(function () {
-                $('#modal-title').html("Ajouter session");
-
-                var url = '{{ path('session_add') }}';
-
-                $.ajax({
-                    type: 'post',
-                    url: url,
-                    success: function (data) {
-                        $('#modal_detail').html(data);
-                        $('#dataModal').modal("show");
-                    }
-                });
-
-            });
-
-
-        });
+       <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous">
 </script>
 {% endblock %}
     </body>

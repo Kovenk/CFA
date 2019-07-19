@@ -68,6 +68,10 @@ class Stagiaire
         $this->listeFormation = new ArrayCollection();
     }
 
+    public function getNomPrenom(){
+        return $this->nom." ".$this->prenom;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

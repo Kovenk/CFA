@@ -8,6 +8,8 @@ use App\Entity\Session;
 use App\Entity\Categorie;
 use App\Entity\Formateur;
 use App\Entity\Stagiaire;
+use App\Form\SessionType;
+use FontLib\TrueType\Collection;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,8 +17,8 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
 
 /**
  * @Route("/admin")
@@ -294,7 +296,7 @@ public function newSession(){
 
         ->add('dateFin',DateType::class)
         ->add('placeTotale',TextType::class)
-        
+        ->add('Valider',SubmitType::class)
         ->getForm();
 
         $form->handleRequest($request);
@@ -323,6 +325,38 @@ public function newSession(){
         return $this->redirectToRoute("session_index");
 
     }
+
+
+
+
+    /**
+    * @Route("/inscription/{id}", name="inscription") 
+    */
+    public function inscription(Session $session,Request $request, ObjectManager $manager){
+
+        $form = $this->createForm(SessionType::class, $session);
+        $form->handleRequest($request);
+
+
+        if($form->isSubmitted() && $form->isValid()){    
+            
+            
+            $manager->flush();
+            return $this->redirectToRoute("session_index");
+        }
+        
+        return $this->render('session/inscription.html.twig',[
+            'form' => $form->createView(),
+            'session' => $session
+        ]);
+
+    }
+
+
+
+
+
+
 /**----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------FORMATEUR---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 

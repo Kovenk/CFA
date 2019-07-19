@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    
+
+<h3>{{session.intitule}}</h3>
+{{form_start(form)}}
+    
+    <input type="hidden" id="maxNb" value="{{session.placeTotale}}">
+    <ul id="inscriptions" data-prototype="{{ form_row(form.inscription.vars.prototype)|e('html_attr') }}">
+    {% for stagiaire in form.inscription  %}
+        <li class="inscription">{{form_row(stagiaire)}}</li>
+    {% endfor %}
+    </ul>
+    {{form_row(form.Valider)}}
+{{ form_end(form)}}
+{% endblock %}
+
+
+{% block javascripts %}
+    {{parent()}}
+    <script src="\js\collectionHandler.js"></script>
+{% endblock %}

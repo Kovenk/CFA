@@ -40,6 +40,7 @@ class Session
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Stagiaire", inversedBy="listeFormation")
+     * 
      */
     private $inscription;
 
@@ -115,10 +116,10 @@ class Session
         return $this->inscription;
     }
 
-    public function addInscription(Stagiaire $inscription): self
+    public function addInscription(Stagiaire $stagiaire): self
     {
-        if (!$this->inscription->contains($inscription)) {
-            $this->inscription[] = $inscription;
+        if (!$this->inscription->contains($stagiaire)) {
+            $this->inscription[] = $stagiaire;
         }
 
         return $this;
