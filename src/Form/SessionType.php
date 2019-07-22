@@ -27,7 +27,8 @@ class SessionType extends AbstractType
                     'label' => false,
                     ],
                 "allow_add" => true,
-                "allow_delete" => true
+                "allow_delete" => true,
+                "by_reference" => false
                 // used to render a select box, check boxes or radios
                 // 'multiple' => true,
                 // 'expanded' => true,

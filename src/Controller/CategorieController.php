@@ -31,7 +31,7 @@ class CategorieController extends AbstractController
     /**
      * @Route("/{id}", name="categorie_show", methods="GET")
      */
-    public function showCategorie(Categorie $categorie): Response {
+    public function showCategorie(Categorie $categorie){
         return $this->render('categorie/show.html.twig',[
             'categorie' => $categorie
         ]);

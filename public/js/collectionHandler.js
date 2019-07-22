@@ -9,6 +9,7 @@
         $btn.on("click", function(){//événement clic du bouton supprimer
             $(this).parent("li").remove();
             $collection.data('index', $collection.data('index')-1)
+
         })
         return $btn;
     }

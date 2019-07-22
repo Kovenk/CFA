@@ -53,8 +53,20 @@
                     <td>{{ stagiaire.mail }} </td>
                 <td><a class="btn btn-secondary" href="{{ path('edit_pdf', {'id': stagiaire.id,'session_id': session.id}) }}">PDF</a></td>
                 </tr> {% endfor %}
-            </tbody>
-        </table>
+            </tbody>  </table>
+                                                                                {% if is_granted("ROLE_ADMIN")%} 
+
+            <div class="container">
+  <div class="row">
+    <div class="col">
+        <a class="btn btn-secondary btn-lg btn-block" href="{{ path('inscription', {'id': session.id}) }}">Inscription</a>
+    </div>
+    <div class="col">
+        <a class="btn btn-secondary btn-lg btn-block" href="{{ path('add_module', {'id': session.id}) }}">Modules</a>
+    </div>
+  </div>
+     {% endif %}
+      
                
 
 

@@ -122,4 +122,8 @@ class Categorie
     {
         return $this->getIntitule();
     }
+
+
+
+    
 }

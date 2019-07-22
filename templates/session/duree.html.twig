@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <style>
+        li{list-style:none;}
+    </style>   
+
+    <h3>{{session.intitule}}</h3>
+        {{form_start(form)}}
+
+            <input type="hidden" id="maxNb" value=30>
+            <ul id="dureeIntoSessions" data-prototype="{{ form_row(form.compositionModule.vars.prototype)|e('html_attr') }}">
+                {% for module in form.compositionModule  %}
+                    <li class="dureeIntoSession">{{form_row(module)}}</li>
+                    
+                {% endfor %}
+            </ul>
+            
+            {{form_row(form.Valider)}}
+        {{ form_end(form)}}
+{% endblock %}
+
+
+{% block javascripts %}
+    {{parent()}}
+    <script src="\js\collectionHandlerDuree.js"></script>
+{% endblock %}

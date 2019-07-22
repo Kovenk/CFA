@@ -18,7 +18,10 @@
                         
                 
                     <th></th>
-
+                    <th></th>
+                    <th></th>
+                    
+                    
                         {% endif %}
 
                     
@@ -27,11 +30,11 @@
             <tbody>
                 {% for categorie in categories %}
                 <tr>
-                    <td scope="row">{{ categorie.intitule }}</td>
+                    <td scope="row"><a href="{{ path('categorie_show', {'id': categorie.id}) }}">{{ categorie.intitule }}</a></td>
                                                                                 {% if is_granted("ROLE_ADMIN")%} 
-                
-                <td style="float: right"><a class="btn btn-secondary" href="{{ path('categorie_edit', {'id': categorie.id}) }}">Modifier</a>
-                    <a class="btn btn-secondary" href="{{ path('categorie_delete', {'id': categorie.id}) }}">X</a>  </td> 
+                <td><a class="btn btn-secondary" href="{{path('module_add', {'id' : categorie.id }) }}">Ajouter un module</a></td>
+                <td><a class="btn btn-secondary" href="{{ path('categorie_edit', {'id': categorie.id}) }}">Modifier</a></td>
+                <td><a class="btn btn-secondary" href="{{ path('categorie_delete', {'id': categorie.id}) }}">X</a>  </td> 
                 {% endif %}
                 </tr>
             </tbody>

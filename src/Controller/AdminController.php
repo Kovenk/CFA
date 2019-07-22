@@ -5,9 +5,11 @@ namespace App\Controller;
 use App\Entity\Duree;
 use App\Entity\Module;
 use App\Entity\Session;
+use App\Form\DureeType;
 use App\Entity\Categorie;
 use App\Entity\Formateur;
 use App\Entity\Stagiaire;
+use App\Form\ModulesType;
 use App\Form\SessionType;
 use FontLib\TrueType\Collection;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,22 +47,23 @@ class AdminController extends AbstractController
 
 
      /**
-    * @Route("/addModule", name="module_add") 
+    * @Route("/addModule/{id}", name="module_add") 
     */
-    public function addModule(Request $request, ObjectManager $manager){
+    public function addModule(Categorie $categorie, Request $request, ObjectManager $manager){
 
         $module = new Module();
 
         $form = $this->createFormBuilder($module)
 
-        ->setAction($this->generateUrl("module_add"))
+        // ->setAction($this->generateUrl("module_add"))
 
-        ->add('intitule',TextType::class)
+
         ->add('theme', EntityType::class, [
             'class' => Categorie::class,
             'choice_label' => 'intitule',
+            'placeholder' => $categorie
         ])
-        
+                ->add('intitule',TextType::class)
         ->add('Valider',SubmitType::class)
         ->getForm();
 
@@ -74,7 +77,8 @@ class AdminController extends AbstractController
         }
         
         return $this->render('module/add.html.twig',[
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'categorie' => $categorie
         ]);
     }
 
@@ -151,7 +155,7 @@ class AdminController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){    
             $manager->persist($categorie);
             $manager->flush();
-            return $this->redirectToRoute("categorie_index");
+            return $this->redirectToRoute("module_add", ['id' => $categorie->getId()]);
         }
         
         return $this->render('categorie/add.html.twig',[
@@ -274,7 +278,7 @@ public function newSession(){
         if($form->isSubmitted() && $form->isValid()){    
             $manager->persist($session);
             $manager->flush();
-            return $this->redirectToRoute("new_session");
+            return $this->redirectToRoute("add_module", ['id' => $session->getId()]);
         }
         
         return $this->render('session/add.html.twig',[
@@ -353,7 +357,27 @@ public function newSession(){
     }
 
 
+    /**
+    * @Route("/moduleAdd/{id}", name="add_module") 
+    */
+    public function addModuleInSession(Session $session,Request $request, ObjectManager $manager){
 
+        $form = $this->createForm(ModulesType::class, $session);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){  
+
+            $manager->persist($session);
+            $manager->flush();
+            return $this->redirectToRoute("session_show", ['id' => $session->getId()]);
+        }
+        
+        return $this->render('session/duree.html.twig',[
+            'form' => $form->createView(),
+            'session' => $session
+        ]);
+
+    }
 
 
 
