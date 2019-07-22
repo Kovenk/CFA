@@ -16,6 +16,7 @@
 
                 {% if is_granted("ROLE_ADMIN")%} 
                     <th></th>
+                    <th></th>   
 
                 {% endif %}
                     
@@ -24,13 +25,13 @@
             <tbody>
                 {% for module in modules %}
                 <tr>
-                    <td scope="row">{{ module.intitule }}</td>
-                    <td>{{ module.theme.intitule }}</td>
-                                                                                {% if is_granted("ROLE_ADMIN")%} 
+                    <td scope="row"><a href="{{ path('module_show', {'id': module.id}) }}">{{ module.intitule }}</a></td>
+                    <td scope="row"><a href="{{ path('categorie_show', {'id': module.theme.id}) }}">{{ module.theme.intitule }}</a></td>
+                             {% if is_granted("ROLE_ADMIN")%} 
                 
-                <td style="float: right"><a class="btn btn-secondary" href="{{ path('module_edit', {'id': module.id}) }}">Modifier</a>
-                    <a class="btn btn-secondary" href="{{ path('module_delete', {'id': module.id}) }}">X</a>  </td> 
-                {% endif %}
+                <td><a class="btn btn-secondary" href="{{ path('module_edit', {'id': module.id}) }}">Modifier</a></td>
+                <td><a class="btn btn-secondary" href="{{ path('module_delete', {'id': module.id}) }}">X</a>  </td> 
+                            {% endif %}
                 </tr>
             </tbody>
                 {% endfor %}

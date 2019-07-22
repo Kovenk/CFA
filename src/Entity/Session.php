@@ -45,7 +45,7 @@ class Session
     private $inscription;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Duree", mappedBy="dureeIntoSession", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Duree", mappedBy="dureeIntoSession", cascade={"persist", "remove"})
      */
     private $compositionModule;
 

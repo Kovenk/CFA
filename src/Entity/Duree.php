@@ -22,14 +22,14 @@ class Duree
     private $nbJour;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Session", inversedBy="compositionModule", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Session", inversedBy="compositionModule", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $dureeIntoSession;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Module", inversedBy="compositionSession", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Module", inversedBy="compositionSession", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $dureeIntoModule;
 

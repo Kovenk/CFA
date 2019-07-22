@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Listes des formateurs{% endblock %}
+{% block title %}Catégorie : {{categorie.intitule }}{% endblock %}
 
 {% block body %}
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
-    <div><h3> Liste des modules</h3></div>
+    <div><h3> Liste des modules dans la catégorie : {{categorie.intitule }} </h3></div>
        <table class="table table-hover">
             <thead class="thead-dark">
                 <tr>

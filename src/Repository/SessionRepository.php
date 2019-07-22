@@ -27,6 +27,8 @@ class SessionRepository extends ServiceEntityRepository
         );
         return $query->execute();
     }
+
+    
     // /**
     //  * @return Session[] Returns an array of Session objects
     //  */
@@ -55,4 +57,7 @@ class SessionRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
+
 }
