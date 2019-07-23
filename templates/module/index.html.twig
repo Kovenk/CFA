@@ -7,18 +7,25 @@
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
-    <div><h3> Liste des modules</h3></div>
+    <div><h3> Liste des modules</h3>
+            {% if is_granted("ROLE_ADMIN")%}                                        
+            <a style="float:right" class="nav-link" href="{{path('module_addalone')}}">
+                <button type="button" class="btn btn-secondary" style="width: 190px">
+                    Ajouter un module
+                </button>
+            </a>
+        {% endif %}
+    </div>
        <table class="table table-hover">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">Intitule</th>
                     <th scope="col">Catégorie</th>
 
-                {% if is_granted("ROLE_ADMIN")%} 
-                    <th></th>
-                    <th></th>   
+                        {% if is_granted("ROLE_ADMIN") %}               
+                            <th scope="col"></th>
 
-                {% endif %}
+                        {% endif %}
                     
                 </tr>
             </thead>
@@ -27,10 +34,12 @@
                 <tr>
                     <td scope="row"><a href="{{ path('module_show', {'id': module.id}) }}">{{ module.intitule }}</a></td>
                     <td scope="row"><a href="{{ path('categorie_show', {'id': module.theme.id}) }}">{{ module.theme.intitule }}</a></td>
+
+
                              {% if is_granted("ROLE_ADMIN")%} 
                 
-                <td><a class="btn btn-secondary" href="{{ path('module_edit', {'id': module.id}) }}">Modifier</a></td>
-                <td><a class="btn btn-secondary" href="{{ path('module_delete', {'id': module.id}) }}">X</a>  </td> 
+                <td style="float:right"><a class="btn btn-secondary" href="{{ path('module_edit', {'id': module.id}) }}">Modifier</a>
+                <a class="btn btn-secondary" href="{{ path('module_delete', {'id': module.id}) }}">X</a>  </td> 
                             {% endif %}
                 </tr>
             </tbody>

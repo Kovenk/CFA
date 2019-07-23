@@ -49,11 +49,6 @@
                         <a class="nav-link" href="{{path('module_index')}}">Modules</a>
                     </li>
                     
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <li class="nav-item {% if mainNavAdmin is defined %}active{% endif %}">
-                            <a class="nav-link" href="{{path('admin_index')}}">Espace admin</a>
-                        </li>
-                    {% endif %} 
                 </ul>
                  <ul class="navbar-nav ml-auto">
                        {% if is_granted('ROLE_USER') %}
@@ -72,7 +67,7 @@
                     {% endif %} 
 
 
-      <button class="btn btn-outline-secondary " type="submit" ><a class="nav-link" href="{{path('search')}}">Recherche avancée</a></button>
+      <button class="btn btn-outline-secondary"><a class="nav-link" href="{{path('search')}}">Recherche</a></button>
 
                 </ul>
              </nav>

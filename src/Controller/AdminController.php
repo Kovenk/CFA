@@ -82,6 +82,41 @@ class AdminController extends AbstractController
         ]);
     }
 
+     /**
+    * @Route("/addModuleAlone/", name="module_addalone") 
+    */
+    public function addModuleAlone(Request $request, ObjectManager $manager){
+
+        $module = new Module();
+
+        $form = $this->createFormBuilder($module)
+
+        // ->setAction($this->generateUrl("module_add"))
+
+
+        ->add('theme', EntityType::class, [
+            'class' => Categorie::class,
+            'choice_label' => 'intitule',
+            'placeholder' => 'Dans quelle catégorie voulez vous inserer le module'
+        ])
+                ->add('intitule',TextType::class)
+        ->add('Valider',SubmitType::class)
+        ->getForm();
+
+        $form->handleRequest($request);
+
+
+        if($form->isSubmitted() && $form->isValid()){    
+            $manager->persist($module);
+            $manager->flush();
+            return $this->redirectToRoute("module_index");
+        }
+        
+        return $this->render('module/addAlone.html.twig',[
+            'form' => $form->createView()
+        ]);
+    }
+
 
 
 

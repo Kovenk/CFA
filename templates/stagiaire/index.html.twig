@@ -4,7 +4,16 @@
 
 {% block body %}
 
-    <div><h3> Liste des stagiaires</h3></div>
+    <div><h3> Liste des stagiaires</h3>
+        {% if is_granted("ROLE_ADMIN")%}                                        
+            <a style="float:right" class="nav-link" href="{{path('stagiaire_add')}}">
+                <button type="button" class="btn btn-secondary" style="width: 190px">
+                    Ajouter un stagiaire
+                </button>
+            </a>
+        {% endif %}
+    
+    </div>
     <br>
        <table class="table table-hover">
             <thead class="thead-dark">
