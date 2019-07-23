@@ -55,4 +55,15 @@ class CategorieRepository extends ServiceEntityRepository
         ;
     }
     */
+
+     public function search($search){
+
+         return $this->createQueryBuilder('c')
+         ->andWhere('c.intitule LIKE :q')
+         ->setParameter('q', '%'.$search.'%')
+         ->getQuery()
+         ->getResult()
+         ;
+
+     }
 }

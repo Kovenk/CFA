@@ -55,4 +55,25 @@ class FormateurRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
+    public function search($search){
+
+        return $this->createQueryBuilder('f')
+        ->orWhere('f.nom LIKE :q')
+        ->orWhere('f.prenom LIKE :q')
+        ->orWhere('f.dateNaissance LIKE :q')
+        ->orWhere('f.adresse LIKE :q')
+        ->orWhere('f.ville LIKE :q')
+        ->orWhere('f.codePostal LIKE :q')
+        ->orWhere('f.mail LIKE :q')
+        ->orWhere('f.telephone LIKE :q')
+        
+        
+        ->setParameter('q', '%'.$search.'%')
+        ->getQuery()
+        ->getResult()
+        ;
+
+    }
 }

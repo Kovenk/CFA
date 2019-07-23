@@ -58,6 +58,20 @@ class SessionRepository extends ServiceEntityRepository
     }
     */
 
+    public function search($search){
 
+        return $this->createQueryBuilder('s')
+        ->orWhere('s.intitule LIKE :q')
+        ->orWhere('s.dateDebut LIKE :q')
+        ->orWhere('s.dateFin LIKE :q')
+        ->orWhere('s.placeTotale LIKE :q')
+
+        
+        ->setParameter('q', '%'.$search.'%')
+        ->getQuery()
+        ->getResult()
+        ;
+
+    }
 
 }

@@ -58,5 +58,23 @@ class StagiaireRepository extends ServiceEntityRepository
     }
     */
 
+    public function search($search){
 
+        return $this->createQueryBuilder('s')
+        ->orWhere('s.nom LIKE :q')
+        ->orWhere('s.prenom LIKE :q')
+        ->orWhere('s.dateNaissance LIKE :q')
+        ->orWhere('s.adresse LIKE :q')
+        ->orWhere('s.ville LIKE :q')
+        ->orWhere('s.codePostal LIKE :q')
+        ->orWhere('s.mail LIKE :q')
+        ->orWhere('s.telephone LIKE :q')
+        
+        
+        ->setParameter('q', '%'.$search.'%')
+        ->getQuery()
+        ->getResult()
+        ;
+
+    }
 }

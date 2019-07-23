@@ -18,22 +18,22 @@ class AdvencedSearchType extends AbstractType{
     public function buildForm(FormBuilderInterface $builder, array $options){
 
         $builder
-            ->add('Rechercher', TextType::class)
-            ->add('Selectionner_un_ou_plusieurs_champs_de_recherche', ChoiceType::class,[
+            ->add('recherche', TextType::class)
+            ->add('type', ChoiceType::class,[
                 'choices' => [
                     'Formateur' => 'formateur',
-                    // 'Session' => 'fession',
-                    // 'Module' => 'module',
-                    // 'Stagiaire' => 'stagiaire',
-                    // 'Catégorie' => 'categorie',
+                    'Session' => 'session',
+                    'Module' => 'module',
+                    'Stagiaire' => 'stagiaire',
+                    'Catégorie' => 'categorie',
                 ],
 
              'multiple' => false,
              'expanded' => true
         ])
 
-            ->add('Date_de_debut',DateType::class)
-            ->add('Date_de_fin',DateType::class)
+            ->add('begindate',DateType::class)
+            ->add('enddate', DateType::class)
             ->add('Valider', SubmitType::class);
 
             

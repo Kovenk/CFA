@@ -55,4 +55,17 @@ class ModuleRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function search($search){
+
+        return $this->createQueryBuilder('m')
+        ->orWhere('m.intitule LIKE :q')
+
+        
+        ->setParameter('q', '%'.$search.'%')
+        ->getQuery()
+        ->getResult()
+        ;
+
+    }
 }

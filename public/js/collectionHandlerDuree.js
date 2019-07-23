@@ -26,7 +26,7 @@
         $collection.data('index', index+1);
 
         //on construit l'élément li avec le champ et le bouton supprimer
-        var $newFormLi = $('<li></li>').append(newForm).append(generateDeleteButton());
+        var $newFormLi = $('<li></li>').append(newForm).append(generateDeleteButton($collection));
         //on ajoute la nouvelle li au dessus de celle qui contient le bouton "ajouter"
         $newLinkLi.before($newFormLi);
     }

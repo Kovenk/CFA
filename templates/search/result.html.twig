@@ -1,7 +1,19 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-    
-<h3>Recherche avancée</h3>
-{{form(search_form)}}
+    {% if results != null %}
+        <h5>Resultats : </h5>
+        <ul>
+            {% for result in results %}
+
+                <li style="list-style:none">{{ result }}</li>  
+
+            {% endfor %}
+        </ul>
+    {% endif %}  
+
+
+    <h3>Recherche avancée</h3>
+    {{ form(search_form) }}
+
 {% endblock %}
