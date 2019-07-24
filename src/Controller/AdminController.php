@@ -440,7 +440,10 @@ public function newSession(){
         $form = $this->createFormBuilder($formateur)
         ->add('prenom',TextType::class)
         ->add('nom',TextType::class)
-        ->add('dateNaissance',DateType::class)
+        ->add('dateNaissance',DateType::class, array(
+            'widget' => 'choice',
+            'years' => range(date('Y')-100, date('Y'))
+          ))
         ->add('specialite', EntityType::class, [
             // looks for choices from this entity
             'class' => Categorie::class,
@@ -553,7 +556,10 @@ public function newSession(){
         $form = $this->createFormBuilder($stagiaire)
         ->add('prenom',TextType::class)
         ->add('nom',TextType::class)
-        ->add('dateNaissance',DateType::class)
+        ->add('dateNaissance',DateType::class, array(
+            'widget' => 'choice',
+            'years' => range(date('Y')-100, date('Y'))
+          ))
         ->add('telephone',TextType::class)
         ->add('mail',TextType::class)
         ->add('adresse',TextType::class)

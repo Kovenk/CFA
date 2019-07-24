@@ -17,7 +17,7 @@
             
         {% endblock %}
         
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="icon" type="image/x-icon" href="{{ asset('public\favicon.ico') }}" />
     </head>
     <body>
     <body id="{% block body_id %}{% endblock %}">
@@ -25,7 +25,10 @@
         {% block header %}
             <header id="header" class="bck1 border-bottom">
                 <div class="container">
-                    <h1>{% if title is defined %}{{title}}{% else %}CFA{% endif %}</h1>
+                    <h1>{% if title is defined %}
+                            {{title}}
+                                {% else %}World Form Training Center
+                            {% endif %}</h1>
                 </div>
             </header>
         {% endblock %}
@@ -103,10 +106,11 @@
             {% block body %}
             {% endblock %}
         </div>
+        <div style="padding:25"> </div>
 
         {# {% block footer %}
             <footer id="footer" class="bck1 border-top">
-                <div class="container">
+                <div class="container" style="margin: 60px">
                  
                 </div>
             </footer>

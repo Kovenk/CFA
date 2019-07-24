@@ -20,6 +20,7 @@ class AdvencedSearchType extends AbstractType{
         $builder
             ->add('recherche', TextType::class)
             ->add('type', ChoiceType::class,[
+                'label' => 'Choix de recherche',
                 'choices' => [
                     'Formateur' => 'formateur',
                     'Session' => 'session',
@@ -32,8 +33,12 @@ class AdvencedSearchType extends AbstractType{
              'expanded' => true
         ])
 
-            ->add('begindate',DateType::class)
-            ->add('enddate', DateType::class)
+            ->add('begindate',DateType::class, [
+            'label' => 'Date de Debut'
+            ])
+            ->add('enddate', DateType::class, [
+            'label' => 'Date de Fin'
+            ])
             ->add('Valider', SubmitType::class);
 
             

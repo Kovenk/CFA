@@ -65,6 +65,8 @@ class SessionRepository extends ServiceEntityRepository
         ->orWhere('s.dateDebut LIKE :q')
         ->orWhere('s.dateFin LIKE :q')
         ->orWhere('s.placeTotale LIKE :q')
+        ->orWhere('s.dateDebut LIKE :q')
+        ->orWhere('s.dateFin LIKE :q')
 
         
         ->setParameter('q', '%'.$search.'%')

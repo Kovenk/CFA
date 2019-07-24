@@ -44,16 +44,22 @@
         </tr>
     </thead>
     <tbody>
-                {% for session in stagiaire.listeFormation %}
-                <tr>
-                    <td scope="row"><a href="{{ path('session_show', {'id': session.id}) }}">{{ session.intitule }}</a></td>
-                    <td>{{ session.dateDebut | date('d/m/Y') }}</td>
-                    <td>{{ session.dateFin | date('d/m/Y') }}</td>
-                    <td>{{ session.inscription|length }} </td>
-                    <td>{{ session.placeTotale - session.inscription|length }}</td>
-                <td><a class="btn btn-secondary" href="{{ path('edit_pdf', {'id': stagiaire.id,'session_id': session.id}) }}">PDF</a></td>
-                </tr>
-                {% endfor %}
+            {% for session in stagiaire.listeFormation %}
+            <tr>
+                <td scope="row"><a href="{{ path('session_show', {'id': session.id}) }}">{{ session.intitule }}</a></td>
+                <td>{{ session.dateDebut | date('d/m/Y') }}</td>
+                <td>{{ session.dateFin | date('d/m/Y') }}</td>
+                <td>{{ session.inscription|length }} </td>
+                <td>{{ session.placeTotale - session.inscription|length }}</td>
+                <td> 
+                    {% if is_granted('ROLE_ADMIN') %}
+                        {% if  session.dateFin  < date() %}
+                            <a class="btn btn-secondary" href="{{ path('edit_pdf', {'id': stagiaire.id,'session_id': session.id}) }}">PDF</a></td>
+                        {% endif %}
+                    {% endif %}              
+            </tr>    
+
+            {% endfor %}
 
     </tbody>
 

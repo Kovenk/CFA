@@ -3,34 +3,30 @@
 {% block title %}{{ session.intitule }}{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+
+    <table class="table table-hover">
+        <thead class="thead-dark">
+        <label> Listes des modules pour la session {{ session.intitule }} </label>
+            <tr>
+                <th scope="col">Module</th>
+                <th scope="col">Nombres de jours</th>
+            </tr>
+        </thead>
+    <tbody>
+    
+
+    {% for module in session.compositionModule %}
+
+        <tr> {# NOUBLIE JAMAIS CETTE PUTAIN DE RELATION #}
+        {# On va chercher le module lié par la durée et on ressort son intitule #}
+            <td scope="row">{{ module.dureeIntoModule.intitule }}</td>
+            <td>{{ module.nbJour }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
 
 
-       <table class="table table-hover">
-            <thead class="thead-dark">
-                        <label> Listes des modules pour la session {{ session.intitule }} </label>
-                <tr>
-                    <th scope="col">Module</th>
-                    <th scope="col">Nombres de jours</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for module in session.compositionModule %}
-
-                    <tr> {# NOUBLIE JAMAIS CETTE PUTAIN DE RELATION #}
-                         {# On va chercher le module lié par la durée et on ressort son intitule #}
-                        <td scope="row">{{ module.dureeIntoModule.intitule }}</td>
-                        <td>{{ module.nbJour }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-
-
-
-       <table class="table table-hover">
+        <table class="table table-hover">
             <thead class="thead-dark">
             <label> Listes des inscrits pour la session {{ session.intitule }} </label>
                 <tr>
@@ -40,38 +36,41 @@
                     <th scope="col">Telephone</th>
                     <th scope="col">Mail</th> 
                     <th scope="col"></th>
-                    
                 </tr>
             </thead>
+
             <tbody>
                 {% for stagiaire in session.inscription %}
-                <tr>
-                    <td scope="row"><a href="{{ path('stagiaire_show', {'id': stagiaire.id}) }}">{{ stagiaire.nom }}</a></td>
-                    <td>{{ stagiaire.prenom }}</td>
-                    {# <td>{{ stagiaire.dateNaissance | date('d/m/Y') }}</td> #}
-                    <td>{{ stagiaire.telephone }}</td>
-                    <td>{{ stagiaire.mail }} </td>
-                <td><a class="btn btn-secondary" href="{{ path('edit_pdf', {'id': stagiaire.id,'session_id': session.id}) }}">PDF</a></td>
-                </tr> {% endfor %}
-            </tbody>  </table>
-                                                                                {% if is_granted("ROLE_ADMIN")%} 
+                    <tr>
+                        <td scope="row"><a href="{{ path('stagiaire_show', {'id': stagiaire.id}) }}">{{ stagiaire.nom }}</a></td>
+                        <td>{{ stagiaire.prenom }}</td>
+                        {# <td>{{ stagiaire.dateNaissance | date('d/m/Y') }}</td> #}
+                        <td>{{ stagiaire.telephone }}</td>
+                        <td>{{ stagiaire.mail }} </td>
 
-            <div class="container">
-  <div class="row">
-    <div class="col">
-        <a class="btn btn-secondary btn-lg btn-block" href="{{ path('inscription', {'id': session.id}) }}">Inscription</a>
-    </div>
-    <div class="col">
-        <a class="btn btn-secondary btn-lg btn-block" href="{{ path('add_module', {'id': session.id}) }}">Modules</a>
-    </div>
-  </div>
-     {% endif %}
-      
-               
+                        <td>    
+                            {% if is_granted('ROLE_ADMIN') %}
+                                {% if  session.dateFin  < date() %}
+                                    <a class="btn btn-secondary" href="{{ path('edit_pdf', {'id': stagiaire.id,'session_id': session.id}) }}">PDF</a></td>
+                                {% endif %}
+                            {% endif %}              
+                        </tr>    
+                {% endfor %}
+            </tbody>  
+        </table>
+    {% if is_granted("ROLE_ADMIN")%} 
 
-
-
-
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <a class="btn btn-secondary btn-lg btn-block" href="{{ path('inscription', {'id': session.id}) }}">Inscription</a>
+                </div>
+                <div class="col">
+                    <a class="btn btn-secondary btn-lg btn-block" href="{{ path('add_module', {'id': session.id}) }}">Modules</a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 
 {% endblock %}
 

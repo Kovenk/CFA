@@ -1,40 +1,43 @@
 <style>
     @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
     *{
-        background: rgb(49,100,230);
-        background: linear-gradient(90deg, rgba(49,100,230,1) 0%, rgba(162,214,224,1) 100%);
+
+
         margin:0;
-        padding:20px 10px;
-        font-family: 'Roboto', sans-serif;
-        text-align: center;
-        
+        padding:0;
+        font-family: 'Roboto', sans-serif;      
     } 
-    .text{
-        text-align: justify;
+    #img{
+        position: absolute;
+        z-index:-1;
+        height: 100%;
+        width: 100%;
+    }
+
+    #nom{
+        position: absolute;
+        top: 404px;
+        left: 233px;
+    }
+
+    #titrepro{         
+        position: absolute;
+        top: 372px;
+        left: 140px;
     }
 </style>
 
 {% block body %}
 
-    <div class="test">
         
-        <h1 >CFA - Centre de Formation pour l'avenir</h1>
-            <p>Établissement de formation supérieur 202 Avenue de Colmar, 67100 Strasbourg
-            Certifit que :</p>
-        <img id="img" src="C:/Users/Stagiaire/Downloads/Polnarff.png">
-        <h3> {{ stagiaire.nom }} {{ stagiaire.prenom }} </h3>
 
-            <p class="text"> ayant honorablement réussit les épreuves théoriques et pratiques
-            de l'examen de fin d'étude du Centre de Formation pour l'avenir.</p>
-            <p> Le jury lui accorde le titre de :</p>
+        <img id="img" src="C:\wamp\www\CFA\public\diplome.jpg">
+        <h3 id="nom"> {{ stagiaire.nom }} {{ stagiaire.prenom }} </h3>
 
-        <h2>Titre {{session.intitule}}</h2>
 
-            <p>et le déclarent digne de tous les Honneurs, 
-            Droits et Privilèges associés à cette distinction.</p>
+        <h3 id="titrepro">Titre Professionnel {{session.intitule}}</h3>
 
-            <span><p>Le Président du Jury</p><p>Le Directeur de l'Ecole</p></span> 
             
-    </div>
+ 
 
 {% endblock %}
