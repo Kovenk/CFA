@@ -51,7 +51,7 @@
                         <td>    
                             {% if is_granted('ROLE_ADMIN') %}
                                 {% if  session.dateFin  < date() %}
-                                    <a class="btn btn-secondary" href="{{ path('edit_pdf', {'id': stagiaire.id,'session_id': session.id}) }}">PDF</a></td>
+                                    <a class="btn btn-secondary" target="blank" href="{{ path('edit_pdf', {'id': stagiaire.id,'session_id': session.id}) }}">PDF</a></td>
                                 {% endif %}
                             {% endif %}              
                         </tr>    

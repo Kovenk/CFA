@@ -58,20 +58,33 @@ class SessionRepository extends ServiceEntityRepository
     }
     */
 
-    public function search($search){
+    public function search($search = null, $dated = null, $datef = null){
 
-        return $this->createQueryBuilder('s')
-        ->orWhere('s.intitule LIKE :q')
-        ->orWhere('s.dateDebut LIKE :q')
-        ->orWhere('s.dateFin LIKE :q')
-        ->orWhere('s.placeTotale LIKE :q')
-        ->orWhere('s.dateDebut LIKE :q')
-        ->orWhere('s.dateFin LIKE :q')
+        $qb = $this->createQueryBuilder('s');
+        if($search){
+           $qb->where('s.intitule LIKE :q')
+              ->orWhere('s.placeTotale LIKE :q')
+              ->setParameter('q', '%'.$search.'%');
+        }
+        if($search && $dated && $datef){
+            $qb->where('s.intitule LIKE :q')
+            ->orWhere('s.placeTotale LIKE :q')
 
+            ->andWhere('s.dateDebut >= :dd')
+            ->andWhere('s.dateFin <= :df')
+            ->setParameter("dd", $dated)
+            ->setParameter('df', $datef)            
+            ->setParameter('q', '%'.$search.'%');
+        }
+        else{
+           $qb->where('s.dateDebut >= :dd')
+              ->andWhere('s.dateFin <= :df')
+              ->setParameter("dd", $dated)
+              ->setParameter('df', $datef);
+        }
         
-        ->setParameter('q', '%'.$search.'%')
-        ->getQuery()
-        ->getResult()
+        return $qb->getQuery()
+                  ->getResult()
         ;
 
     }

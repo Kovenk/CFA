@@ -82,7 +82,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-     /**
+    /**
     * @Route("/addModuleAlone/", name="module_addalone") 
     */
     public function addModuleAlone(Request $request, ObjectManager $manager){
@@ -99,7 +99,7 @@ class AdminController extends AbstractController
             'choice_label' => 'intitule',
             'placeholder' => 'Dans quelle catégorie voulez vous inserer le module'
         ])
-                ->add('intitule',TextType::class)
+        ->add('intitule',TextType::class)
         ->add('Valider',SubmitType::class)
         ->getForm();
 
@@ -132,7 +132,6 @@ class AdminController extends AbstractController
             'choice_label' => 'intitule',
         ])
         ->add('Valider',SubmitType::class)
-        
         ->getForm();
 
         $form->handleRequest($request);
@@ -143,7 +142,6 @@ class AdminController extends AbstractController
             return $this->redirectToRoute("module_index");
         }
         
-
         return $this->render('module/add.html.twig',[
             'form' => $form->createView(),
         ]);
@@ -253,18 +251,18 @@ class AdminController extends AbstractController
         $duree = new Duree();
 
         $form = $this->createFormBuilder($duree)
-        ->add('dureeIntoSession', EntityType::class, [
-        'class' => Session::class,
-        'choice_label' => 'intitule',
-        ])
-        ->add('nbJour',TextType::class)
-        ->add('dureeIntoModule', EntityType::class, [
-            'class' => Module::class,
-            'choice_label' => 'intitule',
-        ])
+            ->add('dureeIntoSession', EntityType::class, [
+                'class' => Session::class,
+                'choice_label' => 'intitule',
+                ])
+            ->add('nbJour',TextType::class)
+            ->add('dureeIntoModule', EntityType::class, [
+                'class' => Module::class,
+                'choice_label' => 'intitule',
+                ])
         
-        ->add('Valider',SubmitType::class)
-        ->getForm();
+            ->add('Valider',SubmitType::class)
+            ->getForm();
 
         $form->handleRequest($request);
 
@@ -296,16 +294,16 @@ public function newSession(){
 
         $form = $this->createFormBuilder($session)
 
-        ->setAction($this->generateUrl("session_add"))
+            ->setAction($this->generateUrl("session_add"))
 
-        ->add('intitule',TextType::class)
-        ->add('dateDebut',DateType::class)
-        ->add('dateFin',DateType::class)
-        ->add('placeTotale',TextType::class)
-    
-        ->add('Valider',SubmitType::class)
+            ->add('intitule',TextType::class)
+            ->add('dateDebut',DateType::class)
+            ->add('dateFin',DateType::class)
+            ->add('placeTotale',TextType::class)
         
-        ->getForm();
+            ->add('Valider',SubmitType::class)
+            
+            ->getForm();
 
         $form->handleRequest($request);
 
@@ -328,15 +326,15 @@ public function newSession(){
     public function editSession(Session $session = null, Request $request, ObjectManager $manager){
 
         $form = $this->createFormBuilder($session)
-        ->add('intitule',TextType::class)
-        ->add('dateDebut',DateType::class)
+            ->add('intitule',TextType::class)
+            ->add('dateDebut',DateType::class)
 
 
 
-        ->add('dateFin',DateType::class)
-        ->add('placeTotale',TextType::class)
-        ->add('Valider',SubmitType::class)
-        ->getForm();
+            ->add('dateFin',DateType::class)
+            ->add('placeTotale',TextType::class)
+            ->add('Valider',SubmitType::class)
+            ->getForm();
 
         $form->handleRequest($request);
 
@@ -438,31 +436,31 @@ public function newSession(){
         $formateur = new Formateur();
 
         $form = $this->createFormBuilder($formateur)
-        ->add('prenom',TextType::class)
-        ->add('nom',TextType::class)
-        ->add('dateNaissance',DateType::class, array(
-            'widget' => 'choice',
-            'years' => range(date('Y')-100, date('Y'))
-          ))
-        ->add('specialite', EntityType::class, [
-            // looks for choices from this entity
-            'class' => Categorie::class,
-        
-            // uses the User.username property as the visible option string
-            'choice_label' => 'intitule',
-        
-            // used to render a select box, check boxes or radios
-            // 'multiple' => true,
-            // 'expanded' => true,
-        ])
-        ->add('adresse',TextType::class)
-        ->add('ville',TextType::class)
-        ->add('codePostal',TextType::class)
-        ->add('mail',TextType::class)
-        ->add('telephone',TextType::class)
-        ->add('Valider',SubmitType::class)
-        
-        ->getForm();
+            ->add('prenom',TextType::class)
+            ->add('nom',TextType::class)
+            ->add('dateNaissance',DateType::class, array(
+                'widget' => 'choice',
+                'years' => range(date('Y')-100, date('Y'))
+            ))
+            ->add('specialite', EntityType::class, [
+                // looks for choices from this entity
+                'class' => Categorie::class,
+            
+                // uses the User.username property as the visible option string
+                'choice_label' => 'intitule',
+            
+                // used to render a select box, check boxes or radios
+                // 'multiple' => true,
+                // 'expanded' => true,
+            ])
+            ->add('adresse',TextType::class)
+            ->add('ville',TextType::class)
+            ->add('codePostal',TextType::class)
+            ->add('mail',TextType::class)
+            ->add('telephone',TextType::class)
+            ->add('Valider',SubmitType::class)
+            
+            ->getForm();
 
         $form->handleRequest($request);
 
@@ -488,28 +486,28 @@ public function newSession(){
     public function editFormateur(Formateur $formateur = null, Request $request, ObjectManager $manager){
 
         $form = $this->createFormBuilder($formateur)
-        ->add('prenom',TextType::class)
-        ->add('nom',TextType::class)
-        ->add('dateNaissance',DateType::class)
-        ->add('specialite', EntityType::class, [
-            // looks for choices from this entity
-            'class' => Categorie::class,
-        
-            // uses the User.username property as the visible option string
-            'choice_label' => 'intitule',
-        
-            // used to render a select box, check boxes or radios
-            // 'multiple' => true,
-            // 'expanded' => true,
-        ])
-        ->add('adresse',TextType::class)
-        ->add('ville',TextType::class)
-        ->add('codePostal',TextType::class)
-        ->add('mail',TextType::class)
-        ->add('telephone',TextType::class)
-        ->add('Valider',SubmitType::class)
-        
-        ->getForm();
+            ->add('prenom',TextType::class)
+            ->add('nom',TextType::class)
+            ->add('dateNaissance',DateType::class)
+            ->add('specialite', EntityType::class, [
+                // looks for choices from this entity
+                'class' => Categorie::class,
+            
+                // uses the User.username property as the visible option string
+                'choice_label' => 'intitule',
+            
+                // used to render a select box, check boxes or radios
+                // 'multiple' => true,
+                // 'expanded' => true,
+            ])
+            ->add('adresse',TextType::class)
+            ->add('ville',TextType::class)
+            ->add('codePostal',TextType::class)
+            ->add('mail',TextType::class)
+            ->add('telephone',TextType::class)
+            ->add('Valider',SubmitType::class)
+            
+            ->getForm();
 
         $form->handleRequest($request);
 
@@ -554,21 +552,21 @@ public function newSession(){
         $stagiaire = new Stagiaire();
 
         $form = $this->createFormBuilder($stagiaire)
-        ->add('prenom',TextType::class)
-        ->add('nom',TextType::class)
-        ->add('dateNaissance',DateType::class, array(
-            'widget' => 'choice',
-            'years' => range(date('Y')-100, date('Y'))
-          ))
-        ->add('telephone',TextType::class)
-        ->add('mail',TextType::class)
-        ->add('adresse',TextType::class)
-        ->add('ville',TextType::class)
-        ->add('codePostal',TextType::class)
+            ->add('prenom',TextType::class)
+            ->add('nom',TextType::class)
+            ->add('dateNaissance',DateType::class, array(
+                'widget' => 'choice',
+                'years' => range(date('Y')-100, date('Y'))
+            ))
+            ->add('telephone',TextType::class)
+            ->add('mail',TextType::class)
+            ->add('adresse',TextType::class)
+            ->add('ville',TextType::class)
+            ->add('codePostal',TextType::class)
 
-        ->add('Valider',SubmitType::class)
-        
-        ->getForm();
+            ->add('Valider',SubmitType::class)
+            
+            ->getForm();
 
         $form->handleRequest($request);
 
@@ -593,18 +591,18 @@ public function newSession(){
     public function editStagiaire(Stagiaire $stagiaire = null, Request $request, ObjectManager $manager){
 
         $form = $this->createFormBuilder($stagiaire)
-        ->add('prenom',TextType::class)
-        ->add('nom',TextType::class)
-        ->add('dateNaissance',DateType::class)
-        ->add('telephone',TextType::class)
-        ->add('mail',TextType::class)
-        ->add('adresse',TextType::class)
-        ->add('ville',TextType::class)
-        ->add('codePostal',TextType::class)
+            ->add('prenom',TextType::class)
+            ->add('nom',TextType::class)
+            ->add('dateNaissance',DateType::class)
+            ->add('telephone',TextType::class)
+            ->add('mail',TextType::class)
+            ->add('adresse',TextType::class)
+            ->add('ville',TextType::class)
+            ->add('codePostal',TextType::class)
 
-        ->add('Valider',SubmitType::class)
-        
-        ->getForm();
+            ->add('Valider',SubmitType::class)
+            
+            ->getForm();
 
         $form->handleRequest($request);
 
@@ -634,18 +632,5 @@ public function newSession(){
         return $this->redirectToRoute("stagiaire_index");
 
     }
-
-
-
-
-    
-
-
-
-
-
-
-
-
 
 }

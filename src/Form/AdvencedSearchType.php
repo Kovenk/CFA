@@ -10,6 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Doctrine\Common\Annotations\Annotation\Required;
+use Proxies\__CG__\App\Entity\Session;
 
 class AdvencedSearchType extends AbstractType{
 
@@ -18,7 +20,10 @@ class AdvencedSearchType extends AbstractType{
     public function buildForm(FormBuilderInterface $builder, array $options){
 
         $builder
-            ->add('recherche', TextType::class)
+            ->add('recherche', TextType::class, [
+                'required' => false,
+                'label' => false
+            ])
             ->add('type', ChoiceType::class,[
                 'label' => 'Choix de recherche',
                 'choices' => [
@@ -28,21 +33,17 @@ class AdvencedSearchType extends AbstractType{
                     'Stagiaire' => 'stagiaire',
                     'Catégorie' => 'categorie',
                 ],
-
              'multiple' => false,
              'expanded' => true
         ])
 
-            ->add('begindate',DateType::class, [
-            'label' => 'Date de Debut'
+            ->add('begindate',DateType::class,[
+                'label' => 'Date de Debut'
             ])
-            ->add('enddate', DateType::class, [
-            'label' => 'Date de Fin'
+            ->add('enddate', DateType::class,[
+                'label' => 'Date de Fin'
             ])
             ->add('Valider', SubmitType::class);
-
-            
-
 
     }
 

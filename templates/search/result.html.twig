@@ -1,19 +1,70 @@
-{% extends "base.html.twig" %}
-
-{% block body %}
-    {% if results != null %}
-        <h5>Resultats : </h5>
-        <ul>
-            {% for result in results %}
-
-                <li style="list-style:none">{{ result }}</li>  
-
-            {% endfor %}
-        </ul>
-    {% endif %}  
+    {% extends "base.html.twig" %}
 
 
-    <h3>Recherche avancée</h3>
-        {{ form(search_form) }}
 
-{% endblock %}
+
+{% block title %}Recherche avancée{% endblock %}
+
+    {% block body %}
+
+
+<style>
+.hidden{
+    display:none;
+}
+
+.session:checked{
+    display:show;
+}
+</style>
+
+
+        {% if results != null %}
+
+            <h3>Resultats : </h3>
+                <ul>
+                
+                    {% for result in results %}
+
+                        <li style="list-style:none">{{ result }}</li>  
+
+                    {% endfor %}
+                </ul>
+             <div style="height: 60px"></div>   
+        {% endif %} 
+
+        {{form_start(search_form)}}
+
+            <h3>Recherche avancée</h3>
+
+                {{form_row(search_form.recherche)}}
+
+                {{form_row(search_form.type)}}
+
+            <div id="dates" class="hidden">
+                {{form_row(search_form.begindate)}}
+
+                {{form_row(search_form.enddate)}}
+            </div>
+                {{form_row(search_form.Valider)}}
+
+        {{ form_end(search_form)}}
+
+
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ parent() }}
+        <script>
+            $(document).ready(function(){
+                $(".form-check-input").click(function(){
+                    if($(this).attr("value") == "session"){
+                        $("#dates").removeClass("hidden")
+                    }
+                    else{
+                        $("#dates").addClass("hidden")
+                    }
+                })
+            })
+        </script>
+    {% endblock %}

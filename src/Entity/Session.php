@@ -167,7 +167,7 @@ class Session
 
  public function __toString()
  {
-     return $this->getIntitule().' | Place Totale : '.$this->getPlaceTotale();
+     return $this->getIntitule().'   |  Place Totale : '.$this->getPlaceTotale().'  |   Date de début  : '. $this->getDateDebut()->format('d/m/Y').'  |  Date de fin : '. $this->getDateFin()->format('d/m/Y');
  }
 
 
